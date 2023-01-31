@@ -1,0 +1,16 @@
+#simple script to send bnb ;web3py
+def transfer(recipient, amount):
+    nonce = w3.eth.get_transaction_count(sender_address)
+    tx = {
+        'nonce': nonce,
+        'to': recipient,
+        'value': w3.toWei(amount, 'ether'),
+        'gas': 21000,
+        'gasPrice': w3.toWei('50', 'gwei')
+    }
+    signed_txn = w3.eth.account.sign_transaction(tx, private_key=env("private"))
+    tx_token = w3.eth.send_raw_transaction(signed_txn.rawTransaction)    
+    print(w3.toHex(tx_token))
+
+#call the function: amount could be 0.01, 0.2, 1,....
+transfer(recipient=receiver, amount=bnb_amount)
